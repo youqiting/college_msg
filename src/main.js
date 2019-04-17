@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router.js'
-import axios from 'axios'
+import require from './config/require.js'
 import ElementUI from 'element-ui'
 import api from './config/api.js'
 
@@ -11,7 +11,7 @@ Vue.config.productionTip = false
 
 Vue.use(ElementUI);
 
-Vue.prototype.$http = axios;
+Vue.prototype.$http = require;
 Vue.prototype.$api = api;
 
 new Vue({
