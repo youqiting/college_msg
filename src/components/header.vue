@@ -18,7 +18,6 @@ export default {
   data(){
     return{
       name:'',
-      hasLogin:localStorage.getItem('hasLogin')
     }
   },
    mounted:function(){
@@ -27,14 +26,12 @@ export default {
     })
   },
   methods:{
+
     getUserName:function(){
       this.name = localStorage.getItem('name');
       console.log(this.name)
     },
-    // 登录
-    login:function(){
-      this.$router.push('/user_login');
-    },
+
     //退出
     quit:function(){
       localStorage.removeItem('name'); 
