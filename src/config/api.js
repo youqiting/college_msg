@@ -1,11 +1,19 @@
 // api.js  通过接口 ， 进行后端相应的处理
-const baseUrl = 'http://localhost:8081';
 
 module.exports = {
-    login: baseUrl+ '/login',
-    selectPractice: baseUrl+ '/selectPractice',
-    updatePractice: baseUrl+ '/updatePractice',
+    //router_stu.js
+    login: '/login',
+    selectStuPrac: '/selectStuPrac',
+    updatePractice: '/updatePractice',
 
-    selectDesign: baseUrl + '/selectDesign',
-    selectDesignByTch: baseUrl + '/selectDesignByTch'
+    selectAllStu: '/selectAllStu',
+
+    //router_teacher.js
+    selectTchInfo: '/selectTchInfo',
+    updateTchInfo: '/updateTchInfo',
+
+    selectDesign: '/selectDesign',
+    selectDesignByTch: '/selectDesignByTch',
+    updateChoose: '/updateChoose',
+    selectDesignByStu: '/selectDesignByStu'
 }
