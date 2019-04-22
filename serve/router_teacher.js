@@ -28,23 +28,35 @@ function router(app){
     app.post('/selectDesign',urlencodeParser, function(req,res){
         console.log("selectDesign");
         var request = req.body;
-        var sql="select * from "+ request.form;
+        var form = stu_designFrom(request.grade)
+        var sql="select * from "+ form;
         runSQL(sql, res);
     })
 
-    //<毕设表>  选择的学生->获取2015毕业设计题目表
+    //<毕设表> 获取指定(chooseMsg里)姓名 学生的课题名称
     app.post('/selectDesignByStu',urlencodeParser, function(req,res){
         console.log("selectDesignByStu");
         var request = req.body;
-        var sql="select * from "+ request.form +" where chooseMsg like '%"+ request.name +"%'";
+        var form = stu_designFrom(request.grade);
+        var sql="select * from "+ form +" where chooseMsg like '%"+ request.name +"%'";
         runSQL(sql, res);
     })
 
-    //<毕设表>  获得 指定教师毕设题目表
+    //<毕设表> 获取指定 id 的毕设
+    app.post('/selectDesignById',urlencodeParser, function(req,res){
+        console.log("selectDesignById");
+        var request = req.body;
+        var form = stu_designFrom(request.grade)
+        var sql="select * from "+ form +" where id="+ request.id;
+        runSQL(sql, res);
+    })
+
+    //<毕设表>  获得指定 教师 毕设题目表
     app.post('/selectDesignByTch',urlencodeParser, function(req,res){
         console.log("selectDesignByTch");
         var request = req.body;
-        var sql = "select * from "+ request.form +" where teacher_name ='"+ request.name+"'";
+        var form = stu_designFrom(request.grade)
+        var sql = "select * from "+ form +" where teacher_name ='"+ request.name+"'";
         runSQL(sql, res);
     })
 
@@ -52,9 +64,23 @@ function router(app){
     app.post('/updateChoose',urlencodeParser, function(req,res){
         console.log("updateChoose");
         var request = req.body;
-        var sql = "update "+ request.form +" set chooseMsg ='"+ request.chooseMsg+"' where id="+request.id;
+        var form = stu_designFrom(request.grade)
+        var sql = "update "+ form +" set chooseMsg ='"+ request.chooseMsg+"' where id="+request.id;
         runSQL(sql, res);
     })
+}
+
+//  返回-> 学生对应年级的 design 表（暂时数据库只有design2015表）
+function stu_designFrom(grade){
+    var form = '';
+    if(grade == '2014'){
+        form = 'design2014';
+    }else if(grade == '2015'){
+        form = 'design2015';
+    }else if(grade == '2016'){
+        form = 'design1672';
+    }
+    return form;
 }
 
 //  运行sql语句
