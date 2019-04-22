@@ -6,7 +6,7 @@
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
                 <el-form-item label="password:" prop="password">
-                    <el-input v-model="form.password" type="password"></el-input>
+                    <el-input v-model="form.password" type="password" show-password></el-input>
                 </el-form-item>
                 <el-form-item label="who are you:" prop="usertype">
                     <template>
@@ -53,11 +53,13 @@ export default {
     methods: {
         //登录
         login: function() {
+            console.log("usertype:"+this.form.usertype);
             var params = {
                 name: this.form.name,
                 password: this.form.password,
                 usertype: this.form.usertype
             };
+            console.log(params);
             this.$http.post(this.$api.login, params).then(res => {
                 console.log(res);
                 var result = res.data;
