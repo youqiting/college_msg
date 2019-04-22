@@ -1,26 +1,42 @@
 <template>
-    <div class="recruit">
-        <h4>校园风采</h4>
+    <div  class="recruit">
         <div class="recruitList">
-            <el-collapse v-model="activeNames">
-                <el-collapse-item title="一致性 Consistency" name="1">
-                    <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-                    <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
-                </el-collapse-item>
-                <el-collapse-item title="反馈 Feedback" name="2">
-                    <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
-                    <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
-                </el-collapse-item>
-                <el-collapse-item title="效率 Efficiency" name="3">
-                    <div>简化流程：设计简洁直观的操作流程；</div>
-                    <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-                    <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
-                </el-collapse-item>
-                <el-collapse-item title="可控 Controllability" name="4">
-                    <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
-                    <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
-                </el-collapse-item>
-            </el-collapse>
+            <h3 style="color:#62a3f3fa">招聘信息</h3>
+            <div class="recruitList">
+                <el-collapse v-model="activeNames">
+                    <el-collapse-item :title="'岗位：'+item.post" :name="index" v-for="(item, index) in recruitList" :key="index">
+                        <div>公  司：  {{item.company}}</div>
+                        <div>公司地址： {{item.address}}</div>
+                        <div>月薪： {{item.salary}}</div>
+                        <div style="width:80%;"><hr/></div>
+                        <div>岗位描述：</div>
+                        <div class="recruitList_desc"><pre>{{item.postDesc}}</pre></div>
+                        <div>要求：</div>
+                        <div class="recruitList_desc"><pre>{{item.required}}</pre></div>
+                        <div>
+                            <el-button type="text" @click="selectRecruitById(item.id)">详细</el-button>
+                        </div>
+                    </el-collapse-item>
+                </el-collapse>
+            </div>
+        </div>
+        <div class="recruitInfo" v-if="this.recruit.id !=null">
+           <el-card>
+                <div slot="header" class="clearfix">
+                    <span>{{this.recruit.post}}</span>
+                    <el-button style="float: right; padding: 3px 0" type="text" @click="closeCard()">关闭</el-button>
+                </div>
+                <div>公  司：  {{this.recruit.company}}</div>
+                <div>公司地址： {{this.recruit.address}}</div>
+                <div>月薪： {{this.recruit.salary}}</div>
+                <hr/>
+                <div class="recruitInfo_desc">岗位描述：
+                    <pre>{{this.recruit.postDesc}}</pre>
+                </div>
+                <div class="recruitInfo_desc">要求：
+                    <pre>{{this.recruit.required}}</pre>
+                </div>
+            </el-card> 
         </div>
     </div>
 </template>
@@ -30,11 +46,68 @@ export default {
     name: "recruit",
     data() {
         return {
-            activeNames: ""
+            activeNames: [],
+            recruitList:[],
+            recruit:{}
         };
+    },
+    mounted:function(){
+        this.$nextTick(function(){
+            this.selectRecruit();
+            this.activeNames = ["2"];
+        })
+    },
+    methods:{
+        //获取招聘信息
+        selectRecruit(){
+            this.$http.post(this.$api.selectRecruit).then(res=>{
+                this.recruitList = res.data.result;
+            })
+        },
+
+        // 获取指定id招聘详细信息
+        selectRecruitById(id){
+            console.log("id:"+id);
+            var params ={
+                id: id
+            }
+            this.$http.post(this.$api.selectRecruitById, params).then(res=>{
+                this.recruit = res.data.result[0];
+            })
+        },
+
+        //关闭卡片
+        closeCard(){
+            this.recruit = {};
+        }
     }
 };
 </script>
 
 <style>
+.recruitList{
+    width: 70%;
+}
+.el-collapse-item .el-collapse-item__header{
+    font-size: 20px;
+}
+.el-collapse-item .el-collapse-item__content{
+    padding-left: 20px;
+    font-size: 16px;
+}
+.recruitList_desc pre{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.recruitInfo{
+    position: absolute;
+    top: 170px;
+    left: 58%;
+    width: 38%;
+}
+.recruitInfo_desc{
+    width: 95%;
+    overflow: auto;
+}
 </style>
