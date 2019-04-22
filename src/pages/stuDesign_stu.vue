@@ -10,15 +10,15 @@
                     <div>学号：{{this.stuInfo.student_id}}</div>
                     <div>姓名：{{this.stuInfo.student_name}}</div>
                 </el-collapse-item>
-                <el-collapse-item title="我的毕业设计" name="2">
+                <el-collapse-item title="我的毕业设计" name="2" v-if="this.stuDesign !=null">
                     <div>教师姓名：{{this.stuDesign.teacher_name}}</div>
                     <div>课题名称：{{this.stuDesign.design_subject}}</div>
                 </el-collapse-item>
+                <el-collapse-item title="我的毕业设计" name="2" v-else>
+                    <div>no data !</div>
+                </el-collapse-item>
             </el-collapse>       
         </div>
-        <!-- <div>
-            数据获取失败
-        </div> -->
     </div>
 </template>
 
@@ -31,28 +31,16 @@ export default {
             name: localStorage.getItem('name'),
             stuDesign:{},
             stuInfo:{},
-            activeNames: ['2']
+            activeNames: ['1']
         }
     },
     mounted:function(){
         this.$nextTick(function(){
-            this.selectStuDesign();
             this.selectStuByName();
+            this.selectStuDesign();
         })
     },
     methods:{
-        //获取学生的毕设课题
-        selectStuDesign:function(){
-            var params = {
-                grade: this.grade,
-                name: this.name
-            }
-            this.$http.post(this.$api.selectDesignByStu, params).then(res=>{
-                this.stuDesign = res.data.result[0];
-                console.log(this.stuDesign);
-            })
-        },
-
         //获取学生的信息 专业
         selectStuByName:function(){
             var params = {
@@ -63,7 +51,20 @@ export default {
                 this.stuInfo = res.data.result[0];
                 console.log(this.stuInfo);
             })
+        },
+        
+        //获取学生的毕设课题
+        selectStuDesign:function(){
+            var params = {
+                grade: this.grade,
+                name: this.name
+            }
+            this.$http.post(this.$api.selectDesignByStu, params).then(res=>{
+                this.stuDesign = res.data.result[0];
+                console.log(this.stuDesign);
+            })
         }
+
     }
 }
 </script>
