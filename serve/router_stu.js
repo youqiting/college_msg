@@ -9,7 +9,7 @@ function router(app){
         var sql = "",form='';
         var pwd = request.password;
         var grade = '';
-        if(request.type == 'tch'){
+        if(request.usertype == 'teacher'){
             sql = "select * from teacher where teacher_name='"+request.name+"'";
             form = 'teacher';
         }else {
@@ -64,16 +64,25 @@ function router(app){
         runSQL(sql, res);
     })
 
-    // 获取班级名单
-    app.post('/selectAllStu',urlencodeParser, function(req, res){
+    // 获取班级指定学生名单
+    app.post('/selectStuByName',urlencodeParser, function(req, res){
         var request = req.body;;
-        var sql ="select * from student"+ request.grade;
+        var form = stu_From(request.grade);
+        var sql ="select * from "+ form +" where student_name ='"+request.name+"'";
+        runSQL(sql, res);
+    })
+
+    // 获取班级全部学生名单
+    app.post('/selectStuClassForm',urlencodeParser, function(req, res){
+        var request = req.body;;
+        var form = stu_From(request.grade);
+        var sql = "select * from "+ form +" where class_name='"+ request.class_name+"'";
         runSQL(sql, res);
     })
 
 }
 
-//  返回-> 学生对应年级的信息表
+//  返回-> 学生对应年级的 信息表
 function stu_From(grade){
     var form = '';
     if(grade == '2014'){
@@ -86,7 +95,7 @@ function stu_From(grade){
     return form;
 }
 
-//  返回-> 学生对应年级的实习表
+//  返回-> 学生对应年级的 实习表
 function stu_practiceFrom(grade){
     var form = '';
     if(grade == '2014'){
@@ -111,7 +120,7 @@ function runSQL(sql, res){
             result:result,
             msg:""
         }
-        console.log(data);
+        // console.log(data);
         res.send(data);
         res.end();
     })
