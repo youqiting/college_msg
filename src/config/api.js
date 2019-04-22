@@ -1,12 +1,20 @@
 // api.js  通过接口 ， 进行后端相应的处理
 
 module.exports = {
+    //router.js
+    selectTalk: '/selectTalk',
+    insertTalk: '/insertTalk',
+    selectRecruit: '/selectRecruit',
+    pulicRecruit: '/pulicRecruit',
+    selectRecruitById: '/selectRecruitById',
+
     //router_stu.js
     login: '/login',
     selectStuPrac: '/selectStuPrac',
     updatePractice: '/updatePractice',
 
-    selectAllStu: '/selectAllStu',
+    selectStuByName: '/selectStuByName',
+    selectStuClassForm: '/selectStuClassForm',
 
     //router_teacher.js
     selectTchInfo: '/selectTchInfo',
@@ -15,5 +23,6 @@ module.exports = {
     selectDesign: '/selectDesign',
     selectDesignByTch: '/selectDesignByTch',
     updateChoose: '/updateChoose',
-    selectDesignByStu: '/selectDesignByStu'
+    selectDesignByStu: '/selectDesignByStu',
+    selectDesignById: '/selectDesignById'
 }
