@@ -17,7 +17,7 @@
                     <img src="../imgs/icon_man.png"/>
                     <span>实习</span>
                 </template>
-                <el-menu-item index="/practiceInfo">
+                <el-menu-item index="/stuPracticeInfo">
                     <span class="item_title">实习信息</span>
                 </el-menu-item>
             </el-submenu>
@@ -26,10 +26,10 @@
                     <img src="../imgs/icon_man.png"/>
                     <span>毕业设计</span>
                 </template>
-                <el-menu-item index="/myDesign">
+                <el-menu-item index="/stuDesign_stu">
                     <span class="item_title">我的选题</span>
                 </el-menu-item>
-                <el-menu-item index="/allDesign">
+                <el-menu-item index="/stuDesign_all">
                     <span class="item_title">所有题目</span>
                 </el-menu-item>
             </el-submenu>
@@ -38,7 +38,7 @@
                     <img src="../imgs/icon_man.png"/>
                     <span>论坛</span>
                 </template>
-                <el-menu-item index="/">
+                <el-menu-item index="/talk">
                     <span class="item_title">所有话题</span>
                 </el-menu-item>
             </el-submenu>
@@ -60,7 +60,7 @@
                     <img src="../imgs/icon_man.png"/>
                     <span>班级名单</span>
                 </template>
-                <el-menu-item index="/classForm">
+                <el-menu-item index="/stuClassForm">
                     <span class="item_title">花名册</span>
                 </el-menu-item>
             </el-submenu>
@@ -83,7 +83,7 @@
                     <img src="../imgs/icon_man.png"/>
                     <span>信息</span>
                 </template>
-                <el-menu-item index="/teacherInfo">
+                <el-menu-item index="/tchInfo">
                     <span class="item_title">个人信息</span>
                 </el-menu-item>
             </el-submenu>
@@ -92,11 +92,11 @@
                     <img src="../imgs/icon_man.png"/>
                     <span>毕业设计</span>
                 </template>
-                <el-menu-item index="/myDesign">
+                <el-menu-item index="/tchDesign_stu">
                     <span class="item_title">学生选题</span>
                 </el-menu-item>
-                <el-menu-item index="/allDesign">
-                    <span class="item_title">所有题目</span>
+                <el-menu-item index="/tchDesign_my">
+                    <span class="item_title">我的题目</span>
                 </el-menu-item>
             </el-submenu>
             <el-submenu index="3">
@@ -104,7 +104,7 @@
                     <img src="../imgs/icon_man.png"/>
                     <span>论坛</span>
                 </template>
-                <el-menu-item index="/">
+                <el-menu-item index="/talk">
                     <span class="item_title">所有话题</span>
                 </el-menu-item>
             </el-submenu>
@@ -116,7 +116,7 @@
                 <el-menu-item index="/recruit">
                     <span class="item_title">查看招聘信息</span>
                 </el-menu-item>
-                <el-menu-item index="/">
+                <el-menu-item index="/recruit_public">
                     <span class="item_title">发布招聘</span>
                 </el-menu-item>
             </el-submenu>
@@ -134,7 +134,7 @@
                     <img src="../imgs/icon_man.png"/>
                     <span>班级名单</span>
                 </template>
-                <el-menu-item index="/classForm">
+                <el-menu-item index="/tchClassForm">
                     <span class="item_title">花名册</span>
                 </el-menu-item>
             </el-submenu>
