@@ -198,13 +198,15 @@ export default {
         //submitChoose  确认提交后
         submitChoose:function(){
             console.log("newDesign.id:"+this.stu_design.id+",oldDesign.id:"+this.oldDesign.id);
-            if(this.stu_design.id != this.oldDesign.id){
+            if(this.stu_design.id != this.oldDesign.id || this.oldDesign == undefined){
                 var params ={
-                    form: "design" + this.grade
+                    grade: this.grade
                 }
                 this.$http.post(this.$api.selectDesign, params).then(res=>{
                     var data = res.data.result;
+                    console.log("selectDesign:"+data);
                     data.forEach((item, index)=>{
+                        //添加学生姓名
                         if(item.id == this.stu_design.id){
                             console.log("old:"+ item.chooseMsg);
                             if(item.chooseMsg == null){
@@ -216,7 +218,8 @@ export default {
                             console.log("新:"+ item.chooseMsg);
                             this.updateChoose(item.id, item.chooseMsg);
                         }
-                        if(item.id == this.oldDesign.id){
+                        //原先的信息里去掉学生姓名
+                        if(item.id == this.oldDesign.id && this.oldDesign.id !=undefined){
                             var msg = localStorage.getItem('username')+ localStorage.getItem('name');
                             item.chooseMsg =  item.chooseMsg.replace(msg, '');
                             if(item.chooseMsg[item.chooseMsg.length-1] == ","){
@@ -227,10 +230,11 @@ export default {
                         }
                     });
                 })
+            this.$message("选题完成！");    
+            this.$router.push('/stuDesign_stu');
             }else{
                 this.$message("选题没变");
             }
-            this.$router.push('/allDesign');
         },
 
         //数据库更新选中值
