@@ -142,7 +142,6 @@
 export default {
     data() {
         return {
-            // practiceInfo: [],
             dialogFormVisible: false,
             practiceInfo: {
                 teacher_name: "",
