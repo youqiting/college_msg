@@ -2,8 +2,9 @@ let express = require('express');
 let app = express();
 let cors =require('cors');
 
-let router_teacher = require('./serve/router_teacher.js');
+let router = require('./serve/router.js');
 let router_stu = require('./serve/router_stu.js');
+let router_teacher = require('./serve/router_teacher.js');
 
 app.use(cors({
     credentials:true,
@@ -11,8 +12,9 @@ app.use(cors({
 }))
 
 app.use(express.static(__dirname));
-router_teacher(app);
+router(app);
 router_stu(app);
+router_teacher(app);
 
 var developState = "/public";
 
